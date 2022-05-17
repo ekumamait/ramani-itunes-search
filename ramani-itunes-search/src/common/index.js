@@ -42,7 +42,7 @@ export const Button = styled.button`
  background-color: ${Palette("Green", "orange")};
  color: ${Palette("White")};
  border-radius: 10px;
- top: 400px;
+ top: 830px;
  left: 30px;
  height: 40px;
  width: 190px;
@@ -50,17 +50,14 @@ export const Button = styled.button`
   cursor: pointer;
   background-color: ${Palette("Secondary", "dark")};
  }
- :focus {
-  outline-color: ${Palette("Secondary")};
- }
 `;
 
 export const Input = styled.input`
  height: 40px;
- margin: 0 1em;
  padding: 0 1em;
- background-color: ${Palette("Green", "golden")};
- border-radius: 0.5em;
+ background-color: ${Palette("White", "transparent_50")};
+ border-bottom-left-radius: 0.5em;
+ border-top-left-radius: 0.5em;
  color: ${Palette("White")};
  font-size: 16px;
  ::placeholder {
@@ -72,14 +69,15 @@ export const Input = styled.input`
 `;
 
 export const Select = styled.select`
- height: 40px;
+ height: 42px;
  margin: 0 1em 0 0;
- border-radius: 0.5em;
- background-color: ${Palette("Green", "golden")};
+ border-top-right-radius: 0.5em;
+ border-bottom-right-radius: 0.5em;
+ background-color: ${Palette("White", "transparent_50")};
  color: ${Palette("White")};
  font-size: 16px;
  :focus {
-  outline-color: ${Palette("Secondary")};
+  outline-color: transparent;
  }
 `;
 
@@ -93,6 +91,7 @@ export const Card = styled.div`
  white-space: nowrap;
  margin: 10px 5px;
  padding: 5px;
+//  text-transform: uppercase;
  background-color: ${Palette("Grey", 600)};
  color: ${Palette("White")};
  :hover {
