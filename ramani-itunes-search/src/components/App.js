@@ -1,90 +1,26 @@
-import React, { useState, useEffect } from "react";
-import "../App.css";
-import Header from "./Header";
-import Itunes from "./Itunes";
-import Search from "./Search";
-import {Oval as Loader} from "react-loader-spinner";
-import styled from "styled-components";
-
-const MOVIE_API_URL = "";
-
-const LoaderContainer = styled.div`
- position: absolute;
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: center;
- font-size: 16px;
- font-weight: 500;
- color: #fff;
- height: 100%;
- width: 100%;
- background-image: linear-gradient(
-  to right top,
-  #161c0a,
-  #24342e,
-  #3e4c4e,
-  #616569,
-  #808080
- );
- top: 0;
- left: 0;
-`;
+import React, { useState } from "react";
+import Header from "../components/Header";
+import ItemsList from "../components/List";
+import { itunesApiRequest } from "../utils/api";
+import { mediaTypes } from "../utils/index";
+import { GlobalStyle, Content } from "../common/index.js";
 
 const App = () => {
- const [loading, setLoading] = useState(true);
- const [movies, setMovies] = useState([]);
- const [errorMessage, setErrorMessage] = useState(null);
+ const [state, setState] = useState({ searchResults: [] });
 
- useEffect(() => {
-  fetch(MOVIE_API_URL)
-   .then((response) => response.json())
-   .then((jsonResponse) => {
-    setMovies(jsonResponse.Search);
-    setLoading(false);
-   });
- }, []);
-
- const search = (searchValue) => {
-  setLoading(true);
-  setErrorMessage(null);
-
-  fetch(``)
-   .then((response) => response.json())
-   .then((jsonResponse) => {
-    if (jsonResponse.Response === "True") {
-     setMovies(jsonResponse.Search);
-     setLoading(false);
-    } else {
-     setErrorMessage(jsonResponse.Error);
-     setLoading(false);
-    }
-   });
+ const updateSearch = async (text, media) => {
+  const response = await itunesApiRequest(text, media);
+  setState((state) => ({ ...state, state: response.results }));
  };
-
+ console.log(state.searchResults);
  return (
-  <div className="App">
-   <Header text="RAMANI" />
-   <Search search={search} />
-   <p className="App-intro">Sharing a few of our favourite movies</p>
-   <div className="movies">
-    {loading && !errorMessage ? (
-     <LoaderContainer>
-      <Loader color="#eb7924" />
-      <div>
-       {" "}
-       <p>RAMANI</p>{" "}
-      </div>
-     </LoaderContainer>
-    ) : errorMessage ? (
-     <div className="errorMessage">{errorMessage}</div>
-    ) : (
-     movies.map((movie, index) => (
-      <Itunes key={`${index}-${movie.Title}`} movie={movie} />
-     ))
-    )}
-   </div>
-  </div>
+  <>
+   <GlobalStyle />
+   <Content>
+    <Header mediaTypes={mediaTypes} startSearch={updateSearch} />
+    <ItemsList items={state.searchResults} />
+   </Content>
+  </>
  );
 };
 
