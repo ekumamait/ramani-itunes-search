@@ -4,22 +4,45 @@ import ItemsList from "../components/List";
 import { itunesApiRequest } from "../utils/api";
 import { mediaTypes } from "../utils/index";
 import { GlobalStyle, Content } from "../common/index.js";
+import { LoaderContainer } from "../common/index.js";
+import { Oval as Loader } from "react-loader-spinner";
 
 const App = () => {
- const [state, setState] = useState({ searchResults: [] });
+ const [searchResults, setsearchResults] = useState([]);
+ const [loading, setLoading] = useState(false);
+ const [errorMessage, setErrorMessage] = useState(null);
 
  const updateSearch = async (text, media) => {
-  const response = await itunesApiRequest(text, media);
-  setState((state) => ({ ...state, state: response.results }));
+  const { data } = await itunesApiRequest(
+   text,
+   media,
+   setLoading,
+   setErrorMessage
+  );
+  setsearchResults([...searchResults, ...data.results]);
  };
- console.log(state.searchResults);
+
  return (
   <>
    <GlobalStyle />
-   <Content>
-    <Header mediaTypes={mediaTypes} startSearch={updateSearch} />
-    <ItemsList items={state.searchResults} />
-   </Content>
+   <div>
+    {loading && !errorMessage ? (
+     <LoaderContainer>
+      <Loader color="#eb7924" />
+      <div>
+       {" "}
+       <p>RAMANI</p>{" "}
+      </div>
+     </LoaderContainer>
+    ) : errorMessage ? (
+     <div className="errorMessage">{errorMessage}</div>
+    ) : (
+     <Content>
+      <Header mediaTypes={mediaTypes} startSearch={updateSearch} />
+      <ItemsList items={searchResults} />
+     </Content>
+    )}
+   </div>
   </>
  );
 };

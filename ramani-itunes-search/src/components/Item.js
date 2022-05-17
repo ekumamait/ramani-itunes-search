@@ -7,7 +7,7 @@ const Item = ({ kind, artistName, trackName, artworkUrl100 }) => (
   <CardText>{artistName}</CardText>
   <CardText>{trackName}</CardText>
   <div>
-   <img src={artworkUrl100} alt="" />
+   <img src={artworkUrl100} alt="" width="250px"/>
   </div>
  </Card>
 );

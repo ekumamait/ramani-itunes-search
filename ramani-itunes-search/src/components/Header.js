@@ -25,7 +25,7 @@ const Header = (props) => {
 
  return (
   <HeaderContent>
-   <Title>iTunes Search</Title>
+   <Title>iTUNES SEARCH</Title>
    <ItunesForm>
     <Input
      type="text"
