@@ -1,14 +1,12 @@
 import React from "react";
-import { Card, CardText } from "../common/index.js";
+import { Card, CardText, Image, Kind } from "../styles/index.js";
 
 const Item = ({ kind, artistName, trackName, artworkUrl100 }) => (
  <Card>
-  <div>{kind}</div>
+  <Image src={artworkUrl100} alt="image" />
+  <Kind>{kind}</Kind>
   <CardText>{artistName}</CardText>
   <CardText>{trackName}</CardText>
-  <div>
-   <img src={artworkUrl100} alt="" width="150px"/>
-  </div>
  </Card>
 );
 
