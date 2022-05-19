@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import {
- HeaderContent,
+ Wrapper,
+ ContentWrapper,
  Title,
  ItunesForm,
  Input,
  Select,
  Button,
-} from "../common/index.js";
+} from "../styles/index.js";
 
 const Header = (props) => {
  const [state, setState] = useState({
@@ -24,24 +25,26 @@ const Header = (props) => {
   setState((state) => ({ ...state, [event.target.name]: event.target.value }));
 
  return (
-  <HeaderContent>
-   <Title>iTUNES SEARCH</Title>
-   <ItunesForm>
-    <Input
-     type="text"
-     name="searchText"
-     value={searchText}
-     placeholder="Search..."
-     onChange={handleChange}
-    />
-    <Select name="searchMedia" value={searchMedia} onChange={handleChange}>
-     {mediaOptions}
-    </Select>
-    <Button onClick={() => startSearch(searchText, searchMedia)}>
-     <i className="material-icons">search</i>
-    </Button>
-   </ItunesForm>
-  </HeaderContent>
+  <Wrapper>
+   <ContentWrapper>
+    <Title>iTUNES SEARCH</Title>
+    <ItunesForm>
+     <Input
+      type="text"
+      name="searchText"
+      value={searchText}
+      placeholder="Search..."
+      onChange={handleChange}
+     />
+     <Select name="searchMedia" value={searchMedia} onChange={handleChange}>
+      {mediaOptions}
+     </Select>
+     <Button onClick={() => startSearch(searchText, searchMedia)}>
+      Search
+     </Button>
+    </ItunesForm>
+   </ContentWrapper>
+  </Wrapper>
  );
 };
 

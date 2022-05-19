@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
-import ItemsList from "../components/List";
-import { itunesApiRequest } from "../utils/api";
-import { mediaTypes } from "../utils/index";
-import { GlobalStyle, Content } from "../common/index.js";
-import { LoaderContainer } from "../common/index.js";
+import SearchPage from "./components";
+import { itunesApiRequest } from "./utils/api";
+import { mediaTypes } from "./utils/index";
+import { GlobalStyle, LoaderContainer } from "../src/styles/index";
 import { Oval as Loader } from "react-loader-spinner";
 
 const App = () => {
@@ -37,10 +35,11 @@ const App = () => {
     ) : errorMessage ? (
      <div className="errorMessage">{errorMessage}</div>
     ) : (
-     <Content>
-      <Header mediaTypes={mediaTypes} startSearch={updateSearch} />
-      <ItemsList items={searchResults} />
-     </Content>
+        <SearchPage 
+        mediaTypes={mediaTypes} 
+        startSearch={updateSearch} 
+        items={searchResults} 
+     />
     )}
    </div>
   </>
